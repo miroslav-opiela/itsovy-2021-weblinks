@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
 
     override fun onWeblinkClick(weblink: Weblink) {
         // tu sa spusti nova aktivita
+
+        val intent = Intent(this, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEBLINK_TAG, weblink)
+        }
+        //alternativne - bez scope funkcie - intent.putExtra(DetailActivity.WEBLINK_TAG, weblink)
+        startActivity(intent)
     }
 
     override fun onWeblinkLongClick(weblink: Weblink) {
