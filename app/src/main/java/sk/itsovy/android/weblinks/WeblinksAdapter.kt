@@ -9,7 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>() {
+// val vyrobi z listener aj premennu, bez val by to bol len parameter konsturktora
+class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>() {
 
     val weblinksTitles = listOf(
         "Kaikhosru Shapurji Sorabji",
@@ -42,13 +43,12 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
         val textView: TextView = itemView.findViewById(R.id.textViewWeblinkTitle)
         val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBarWeblink)
 
-        fun bind(weblink: Weblink) {
+        fun bind(weblink: Weblink, listener: OnWeblinkClickListener) {
             textView.text = weblink.title
             ratingBar.rating = weblink.rating.toFloat()
 
             textView.setOnClickListener {
-                Log.d("WEBLINK", weblink.toString())
-                //Toast.makeText(this, weblink.toString(), Toast.LENGTH_LONG).show()
+                listener.onWeblinkClick(weblink)
             }
             // aktualizuje objekt ked sa zmeni rating po kliknut na ratingbar
             ratingBar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener {
@@ -64,7 +64,7 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
     }
 
     override fun onBindViewHolder(holder: WeblinksViewHolder, position: Int) {
-        holder.bind(weblinks[position])
+        holder.bind(weblinks[position], listener)
     }
 
     // vrati pocet poloziek v zozname - mnozstvo dat
