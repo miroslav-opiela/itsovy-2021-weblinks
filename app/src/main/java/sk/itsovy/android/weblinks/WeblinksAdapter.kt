@@ -3,6 +3,7 @@ package sk.itsovy.android.weblinks
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -28,9 +29,13 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
         "Cynomastix"
     )
 
+    // list weblinkov
+    val weblinks = weblinksTitles.map { Weblink(it, 3) }
+
     class WeblinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // hladam widget v ramci layoutu jednej polozky, ktory pride ako parameter
         val textView: TextView = itemView.findViewById(R.id.textViewWeblinkTitle)
+        val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBarWeblink)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeblinksViewHolder {
@@ -40,7 +45,9 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
     }
 
     override fun onBindViewHolder(holder: WeblinksViewHolder, position: Int) {
-        holder.textView.text = weblinksTitles[position]
+        holder.textView.text = weblinks[position].title
+        // rating bar ocakava float, lebo moze byt aj pol hviezdicky a pod.
+        holder.ratingBar.rating = weblinks[position].rating.toFloat()
     }
 
     // vrati pocet poloziek v zozname - mnozstvo dat
