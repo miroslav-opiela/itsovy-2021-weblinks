@@ -31,8 +31,11 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
         "Cynomastix"
     )
 
-    // list weblinkov
-    val weblinks = weblinksTitles.map { Weblink(it, 3) }
+    // list weblinkov, it je implicitny nazov single parametra
+    val weblinks = weblinksTitles.map {
+        Weblink(it, 3)
+    }
+    //val weblinks = weblinksTitles.map { title -> Weblink(title, 3) }
 
     class WeblinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // hladam widget v ramci layoutu jednej polozky, ktory pride ako parameter
@@ -45,6 +48,11 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
 
             textView.setOnClickListener {
                 Log.d("WEBLINK", weblink.toString())
+                //Toast.makeText(this, weblink.toString(), Toast.LENGTH_LONG).show()
+            }
+            // aktualizuje objekt ked sa zmeni rating po kliknut na ratingbar
+            ratingBar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener {
+                _, rating, _ -> weblink.rating = rating.toInt()
             }
         }
     }
