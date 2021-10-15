@@ -13,7 +13,19 @@ class WeblinksAdapter : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>
         "Primeira Idade",
         "Lynda Adams",
         "Ray Leatherwood",
-        "Bawlte Rohmingthanga"
+        "Bawlte Rohmingthanga",
+        "Psycho-Oncology",
+        "Horaiclavidae",
+        "Sankt Lorenz",
+        "Hye-young",
+        "Michael Zabel",
+        "Orosh",
+        "Design–bid–build",
+        "Photoelectrochemical cell",
+        "Andricus foecundatrix",
+        "Erika Steinbach",
+        "Tide Lines",
+        "Cynomastix"
     )
 
     class WeblinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
