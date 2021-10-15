@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
     }
 
     override fun onWeblinkClick(weblink: Weblink) {
+        // tu sa spusti nova aktivita
+    }
+
+    override fun onWeblinkLongClick(weblink: Weblink) {
         //Toast.makeText(this, weblink.toString(), Toast.LENGTH_LONG).show()
 
         // alebo to vlozit priamo v konstruktore

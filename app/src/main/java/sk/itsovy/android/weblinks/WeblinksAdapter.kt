@@ -50,6 +50,11 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
             textView.setOnClickListener {
                 listener.onWeblinkClick(weblink)
             }
+            textView.setOnLongClickListener {
+                listener.onWeblinkLongClick(weblink)
+                // treba vratit true, lebo metoda onLongClick vrati boolean
+                true
+            }
             // aktualizuje objekt ked sa zmeni rating po kliknut na ratingbar
             ratingBar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener {
                 _, rating, _ -> weblink.rating = rating.toInt()
