@@ -36,7 +36,7 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
     // list weblinkov, it je implicitny nazov single parametra
     val weblinks = weblinksTitles.map {
         Weblink(it, 3)
-    }
+    } as MutableList<Weblink>
     //val weblinks = weblinksTitles.map { title -> Weblink(title, 3) }
 
     class WeblinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -75,5 +75,16 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
 
     // vrati pocet poloziek v zozname - mnozstvo dat
     override fun getItemCount(): Int = weblinksTitles.size
+
+    fun update(weblink: Weblink) {
+        for ((index, weblinkItem) in weblinks.withIndex()) {
+            if (weblinkItem.uuid == weblink.uuid) {
+                // nahradim povodny weblink v zozname novym upravenym
+                weblinks[index] = weblink
+                notifyItemChanged(index)
+                return
+            }
+        }
+    }
 
 }

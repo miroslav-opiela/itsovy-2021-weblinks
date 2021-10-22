@@ -5,5 +5,15 @@ import java.util.*
 
 data class Weblink(var title: String, var rating: Int) : Serializable {
     val uuid: UUID = UUID.randomUUID()
-    val url = "https://en.wikipedia.org/wiki/" + title.replace(' ', '_')
+    lateinit var url : String
+
+    init {
+        updateUrl()
+    }
+
+    fun updateUrl() {
+        url = "https://en.wikipedia.org/wiki/" + title.replace(' ', '_')
+    }
 }
+
+// updateUrl by sa mohlo volat automaticky pri nastaveni title

@@ -21,8 +21,12 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // pri vyrobeni adaptera povie aktivita ze je listenerom
-        recyclerView.adapter = WeblinksAdapter(this)
+        adapter = WeblinksAdapter(this)
+        recyclerView.adapter = adapter
+
     }
+
+    lateinit var adapter: WeblinksAdapter
 
     private val resultLauncher
         = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
                 // it.data je intent
                 val weblink = it.data?.getSerializableExtra(DetailActivity.WEBLINK_TAG) as Weblink
                 Toast.makeText(this, "novy title" + weblink.title, Toast.LENGTH_SHORT).show()
+                adapter.update(weblink)
             }
     }
 

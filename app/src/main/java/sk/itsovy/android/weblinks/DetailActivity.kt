@@ -34,6 +34,8 @@ class DetailActivity : AppCompatActivity() {
         val intent = Intent()
 
         weblink.title = editText.text.toString()
+        weblink.updateUrl()
+
         intent.putExtra(WEBLINK_TAG, weblink)
 
        /* if (weblink.title.isEmpty()) {
