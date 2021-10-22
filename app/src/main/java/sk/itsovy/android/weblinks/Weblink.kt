@@ -3,17 +3,35 @@ package sk.itsovy.android.weblinks
 import java.io.Serializable
 import java.util.*
 
-data class Weblink(var title: String, var rating: Int) : Serializable {
-    val uuid: UUID = UUID.randomUUID()
-    lateinit var url : String
+// nepouzivame data class lebo potrebujeme upravovat konstruktor, settre a pod.
 
+// rating ma default hodnotu - preto je tento parameter v konstruktore optional
+class Weblink(_title: String, var rating: Int = 0) : Serializable {
+
+    var title : String = _title
+        set(value) {
+            // backing field
+            field = value
+            updateUrl()
+        }
+
+    private fun updateUrl() {
+        url = "https://en.wikipedia.org/wiki/" + title.replace(' ', '_')
+    }
+
+    lateinit var url : String
+        // zakazeme nastavovat hodnotu url mimo tejto triedy
+        private set
     init {
         updateUrl()
     }
 
-    fun updateUrl() {
-        url = "https://en.wikipedia.org/wiki/" + title.replace(' ', '_')
-    }
-}
+    // mozno v buducnosti budem potrebovat nastavit uuid - potom to doplnime
+    val uuid: UUID = UUID.randomUUID()
 
-// updateUrl by sa mohlo volat automaticky pri nastaveni title
+    override fun toString(): String {
+        return "Weblink(rating=$rating, title='$title')"
+    }
+
+    // volitelne mozme vygenerovat hashCode a equals
+}
