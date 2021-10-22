@@ -85,6 +85,9 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
                 return
             }
         }
+        // zhoda nebola, teda pridavam novy item
+        weblinks.add(0, weblink)
+        notifyItemInserted(0)
     }
 
     // NEFUNGUJE - arrayIndexOutOfBoundsException

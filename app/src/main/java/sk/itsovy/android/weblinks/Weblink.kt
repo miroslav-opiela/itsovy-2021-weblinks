@@ -34,4 +34,8 @@ class Weblink(_title: String, var rating: Int = 0) : Serializable {
     }
 
     // volitelne mozme vygenerovat hashCode a equals
+
+    companion object {
+        fun emptyWeblink() : Weblink = Weblink(_title = "")
+    }
 }

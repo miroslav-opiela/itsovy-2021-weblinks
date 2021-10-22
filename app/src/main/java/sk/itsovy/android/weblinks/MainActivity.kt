@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_add -> {
-                Toast.makeText(this, "ADD", Toast.LENGTH_SHORT).show()
+                startDetailActivity(Weblink.emptyWeblink())
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -63,6 +63,10 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
         }
 
     override fun onWeblinkClick(weblink: Weblink) {
+       startDetailActivity(weblink)
+    }
+
+    private fun startDetailActivity(weblink: Weblink) {
         // tu sa spusti nova aktivita
 
         val intent = Intent(this, DetailActivity::class.java).apply {
