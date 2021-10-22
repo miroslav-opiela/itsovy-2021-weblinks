@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
         // pri vyrobeni adaptera povie aktivita ze je listenerom
         adapter = WeblinksAdapter(this)
         recyclerView.adapter = adapter
+
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteWeblinkCallback(adapter))
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
     }
 

@@ -87,4 +87,11 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
         }
     }
 
+    fun remove(position: Int) {
+        // aktualizujem data
+        weblinks.removeAt(position)
+        // dam vediet recycler view ze sa zmenili data
+        notifyItemRemoved(position)
+    }
+
 }
