@@ -19,6 +19,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        setSupportActionBar(findViewById(R.id.toolbarDetailActivity))
 
         weblink = intent.getSerializableExtra(WEBLINK_TAG) as Weblink
         val textView: TextView = findViewById(R.id.weblinkDetailTextView)
@@ -34,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
         val intent = Intent()
 
         weblink.title = editText.text.toString()
-        
+
         intent.putExtra(WEBLINK_TAG, weblink)
 
        /* if (weblink.title.isEmpty()) {

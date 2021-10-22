@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         //val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
