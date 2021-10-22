@@ -1,10 +1,12 @@
 package sk.itsovy.android.weblinks
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -22,6 +24,15 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
         recyclerView.adapter = WeblinksAdapter(this)
     }
 
+    private val resultLauncher
+        = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                // it.data je intent
+                val weblink = it.data?.getSerializableExtra(DetailActivity.WEBLINK_TAG) as Weblink
+                Toast.makeText(this, "novy title" + weblink.title, Toast.LENGTH_SHORT).show()
+            }
+    }
+
     override fun onWeblinkClick(weblink: Weblink) {
         // tu sa spusti nova aktivita
 
@@ -29,7 +40,12 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
             putExtra(DetailActivity.WEBLINK_TAG, weblink)
         }
         //alternativne - bez scope funkcie - intent.putExtra(DetailActivity.WEBLINK_TAG, weblink)
-        startActivity(intent)
+
+        // spustenie aktivity bez cakania na vysledok
+        //startActivity(intent)
+
+        // spustenie aktivity a callback pri vysledku
+        resultLauncher.launch(intent)
     }
 
     override fun onWeblinkLongClick(weblink: Weblink) {

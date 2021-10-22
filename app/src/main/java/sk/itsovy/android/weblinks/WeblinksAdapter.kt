@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>() {
 
     val weblinksTitles = listOf(
+        "Universally unique identifier",
         "Kaikhosru Shapurji Sorabji",
         "Primeira Idade",
         "Lynda Adams",
