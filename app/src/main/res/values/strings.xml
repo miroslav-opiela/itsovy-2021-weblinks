@@ -3,4 +3,5 @@
     <string name="weblink">weblink</string>
     <string name="insert_weblink_title">insert weblink title</string>
     <string name="save">save</string>
+    <string name="add">ADD</string>
 </resources>

@@ -20,6 +20,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setSupportActionBar(findViewById(R.id.toolbarDetailActivity))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         weblink = intent.getSerializableExtra(WEBLINK_TAG) as Weblink
         val textView: TextView = findViewById(R.id.weblinkDetailTextView)

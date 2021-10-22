@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -31,17 +33,34 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_item_add -> {
+                Toast.makeText(this, "ADD", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
+
     lateinit var adapter: WeblinksAdapter
 
-    private val resultLauncher
-        = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 // it.data je intent
                 val weblink = it.data?.getSerializableExtra(DetailActivity.WEBLINK_TAG) as Weblink
                 Toast.makeText(this, "novy title" + weblink.title, Toast.LENGTH_SHORT).show()
                 adapter.update(weblink)
             }
-    }
+        }
 
     override fun onWeblinkClick(weblink: Weblink) {
         // tu sa spusti nova aktivita
