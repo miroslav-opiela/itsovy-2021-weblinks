@@ -74,7 +74,7 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
     }
 
     // vrati pocet poloziek v zozname - mnozstvo dat
-    override fun getItemCount(): Int = weblinksTitles.size
+    override fun getItemCount(): Int = weblinks.size
 
     fun update(weblink: Weblink) {
         for ((index, weblinkItem) in weblinks.withIndex()) {
