@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Weblink::class], version = 1, exportSchema = false)
+@TypeConverters(UuidConverters::class)
 public abstract class WeblinkRoomDatabase : RoomDatabase() {
 
     // funkcia ktora vrati weblinkDao - toto neimplementujeme my

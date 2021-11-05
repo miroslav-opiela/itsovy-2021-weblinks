@@ -12,9 +12,9 @@ import java.util.*
 
 // tabulka bude mat 3 stlpce
 @Entity(tableName = "weblinks")
-class Weblink(_title: String, var rating: Int = 0) : Serializable {
+class Weblink(title: String, var rating: Int = 0) : Serializable {
 
-    var title : String = _title
+    var title : String = title
         set(value) {
             // backing field
             field = value
@@ -36,7 +36,7 @@ class Weblink(_title: String, var rating: Int = 0) : Serializable {
 
     // mozno v buducnosti budem potrebovat nastavit uuid - potom to doplnime
     @PrimaryKey
-    val uuid: UUID = UUID.randomUUID()
+    var uuid: UUID = UUID.randomUUID()
 
     override fun toString(): String {
         return "Weblink(rating=$rating, title='$title')"
@@ -45,6 +45,6 @@ class Weblink(_title: String, var rating: Int = 0) : Serializable {
     // volitelne mozme vygenerovat hashCode a equals
 
     companion object {
-        fun emptyWeblink() : Weblink = Weblink(_title = "")
+        fun emptyWeblink() : Weblink = Weblink(title = "")
     }
 }
