@@ -12,32 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 // val vyrobi z listener aj premennu, bez val by to bol len parameter konsturktora
 class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapter<WeblinksAdapter.WeblinksViewHolder>() {
 
-    val weblinksTitles = listOf(
-        "Universally unique identifier",
-        "Kaikhosru Shapurji Sorabji",
-        "Primeira Idade",
-        "Lynda Adams",
-        "Ray Leatherwood",
-        "Bawlte Rohmingthanga",
-        "Psycho-Oncology",
-        "Horaiclavidae",
-        "Sankt Lorenz",
-        "Hye-young",
-        "Michael Zabel",
-        "Orosh",
-        "Design–bid–build",
-        "Photoelectrochemical cell",
-        "Andricus foecundatrix",
-        "Erika Steinbach",
-        "Tide Lines",
-        "Cynomastix"
-    )
-
-    // list weblinkov, it je implicitny nazov single parametra
-    val weblinks = weblinksTitles.map {
-        Weblink(it, 3)
-    } as MutableList<Weblink>
-    //val weblinks = weblinksTitles.map { title -> Weblink(title, 3) }
+    // data pre recycler view, aktualizuju sa na zaklade live data
+    // na zaciatku tam je prazdny zoznam
+   var cachedWeblinks : List<Weblink> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     class WeblinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // hladam widget v ramci layoutu jednej polozky, ktory pride ako parameter
@@ -70,31 +51,10 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: WeblinksViewHolder, position: Int) {
-        holder.bind(weblinks[position], listener)
+        holder.bind(cachedWeblinks[position], listener)
     }
 
     // vrati pocet poloziek v zozname - mnozstvo dat
-    override fun getItemCount(): Int = weblinks.size
-
-    fun update(weblink: Weblink) {
-        for ((index, weblinkItem) in weblinks.withIndex()) {
-            if (weblinkItem.uuid == weblink.uuid) {
-                // nahradim povodny weblink v zozname novym upravenym
-                weblinks[index] = weblink
-                notifyItemChanged(index)
-                return
-            }
-        }
-        // zhoda nebola, teda pridavam novy item
-        weblinks.add(0, weblink)
-        notifyItemInserted(0)
-    }
-
-    fun remove(position: Int) {
-        // aktualizujem data
-        weblinks.removeAt(position)
-        // dam vediet recycler view ze sa zmenili data
-        notifyItemRemoved(position)
-    }
+    override fun getItemCount(): Int = cachedWeblinks.size
 
 }

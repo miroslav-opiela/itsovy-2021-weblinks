@@ -13,12 +13,9 @@ class WeblinkViewModel(private val repository: WeblinkRepository) : ViewModel() 
     val allWeblinks = repository.allWeblinks.asLiveData()
 
     //Launching a new coroutine to insert the data in a non-blocking way
+    // v tomto pripade insert funguje so strategiou replace, teda je to update ak tam existuje
     fun insert(weblink: Weblink) = viewModelScope.launch {
         repository.insert(weblink)
-    }
-
-    fun update(weblink: Weblink) = viewModelScope.launch {
-        repository.update(weblink)
     }
 
     fun delete(weblink: Weblink) = viewModelScope.launch {

@@ -9,7 +9,7 @@ interface WeblinkDao {
     // suspend funkcie vedia byt pozastavene, su v ramci coroutines
     // flow vrati hodnoty z asynchronneho volania po jednej
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(weblink: Weblink)
 
     @Query("SELECT * FROM weblinks")

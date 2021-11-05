@@ -9,11 +9,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
+
+    private val weblinkViewModel : WeblinkViewModel by viewModels {
+        WeblinkViewModel.WeblinkViewModelFactory((application as WeblinkApplication).repository)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,8 +35,13 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
         adapter = WeblinksAdapter(this)
         recyclerView.adapter = adapter
 
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteWeblinkCallback(adapter))
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteWeblinkCallback(adapter, weblinkViewModel))
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        // zacneme pozorovat zmeny v live datach
+        weblinkViewModel.allWeblinks.observe(this, Observer {
+            weblinks -> weblinks?.let { adapter.cachedWeblinks = it }
+        })
 
     }
 
@@ -58,7 +70,7 @@ class MainActivity : AppCompatActivity(), OnWeblinkClickListener {
                 // it.data je intent
                 val weblink = it.data?.getSerializableExtra(DetailActivity.WEBLINK_TAG) as Weblink
                 Toast.makeText(this, "novy title" + weblink.title, Toast.LENGTH_SHORT).show()
-                adapter.update(weblink)
+                weblinkViewModel.insert(weblink)
             }
         }
 
