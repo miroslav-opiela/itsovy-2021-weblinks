@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import sk.itsovy.android.weblinks.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
-    lateinit var editText: EditText
     lateinit var weblink: Weblink
+
+    // nazov triedy je podla xml layoutu + slovo binding
+    lateinit var binding: ActivityDetailBinding
 
     companion object {
         const val WEBLINK_TAG = "weblink"
@@ -18,32 +21,34 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-        setSupportActionBar(findViewById(R.id.toolbarDetailActivity))
+        // ViewBinding
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbarDetailActivity)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         weblink = intent.getSerializableExtra(WEBLINK_TAG) as Weblink
-        val textView: TextView = findViewById(R.id.weblinkDetailTextView)
-        editText = findViewById(R.id.weblinkDetailEditText)
 
-        textView.text = weblink.toString()
-        editText.setText(weblink.title)
+        binding.weblinkDetailTextView.text = weblink.toString()
+        binding.weblinkDetailEditText.setText(weblink.title)
 
+        binding.buttonSave.setOnClickListener { save() }
     }
 
 
-    fun save(view: View) {
+    fun save() {
         val intent = Intent()
 
-        weblink.title = editText.text.toString()
+        weblink.title = binding.weblinkDetailEditText.text.toString()
 
         intent.putExtra(WEBLINK_TAG, weblink)
 
-       /* if (weblink.title.isEmpty()) {
-            setResult(RESULT_CANCELED)
-        } else {
-            setResult(RESULT_OK, intent)
-        }*/
+        /* if (weblink.title.isEmpty()) {
+             setResult(RESULT_CANCELED)
+         } else {
+             setResult(RESULT_OK, intent)
+         }*/
 
         setResult(if (weblink.title.isEmpty()) RESULT_CANCELED else RESULT_OK, intent)
 

@@ -90,7 +90,6 @@ class WeblinksAdapter(val listener: OnWeblinkClickListener) : RecyclerView.Adapt
         notifyItemInserted(0)
     }
 
-    // NEFUNGUJE - arrayIndexOutOfBoundsException
     fun remove(position: Int) {
         // aktualizujem data
         weblinks.removeAt(position)
