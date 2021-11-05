@@ -15,6 +15,8 @@ class WeblinkRepository(private val weblinkDao: WeblinkDao) {
         weblinkDao.insert(weblink)
     }
 
+    // parameter pri update je novy weblink ktory sa ma v databaze objavit
+    // update sa robi podla primarneho kluca
     @WorkerThread
     suspend fun update(weblink: Weblink) {
         weblinkDao.update(weblink)
